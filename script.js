@@ -121,7 +121,8 @@ function isRequestOk() {
 }
 
 function isCEPInvalid() {
-  return ajax.readyState === 4 && ajax.status === 0
+  var parsedResponse = JSON.parse(ajax.responseText)
+  return ajax.readyState === 4 && parsedResponse.status === 400
 }
 
 function fillCEPFields() {
@@ -131,7 +132,7 @@ function fillCEPFields() {
     data = clearData()
   }
 
-  $logradouro.get()[0].textContent = data.adress
+  $logradouro.get()[0].textContent = data.address
   $bairro.get()[0].textContent = data.district
   $estado.get()[0].textContent = data.state
   $cidade.get()[0].textContent = data.city
@@ -140,7 +141,7 @@ function fillCEPFields() {
 
 function clearData() {
   return {
-    adress: '-',
+    address: '-',
     district: '-',
     state: '-',
     city: '-',
